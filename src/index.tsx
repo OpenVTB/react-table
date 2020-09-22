@@ -1,5 +1,6 @@
 import React, { FC, HTMLAttributes, ReactChild } from 'react';
 import AttentionSvg from './attention.svg';
+import IconFromPackage from '@openvtb/admiral-icons/public/svg/category/Autocredit\ Outline.svg';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   /** custom content, defaults to 'the snozzberries taste like snozzberries' */
@@ -16,6 +17,7 @@ export const Thing: FC<Props> = ({ children }) => {
     <div>
       {children || `the snozzberries taste like snozzberries`}
       <AttentionSvg />
+      <IconFromPackage />
     </div>
   );
 };
