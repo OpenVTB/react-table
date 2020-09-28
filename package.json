@@ -1,6 +1,10 @@
 {
   "version": "0.1.0",
   "license": "MIT",
+  "name": "react-ui-kit",
+  "author": "Litvinov Andrey",
+  "type": "module",
+  "module": "dist/react-ui-kit.esm.js",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -22,7 +26,8 @@
     "build-storybook": "build-storybook"
   },
   "peerDependencies": {
-    "react": ">=16"
+    "react": ">=16",
+    "react-dom": ">=16"
   },
   "husky": {
     "hooks": {
@@ -35,9 +40,6 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "react-ui-kit",
-  "author": "Litvinov Andrey",
-  "module": "dist/react-ui-kit.esm.js",
   "size-limit": [
     {
       "path": "dist/react-ui-kit.cjs.production.min.js",
