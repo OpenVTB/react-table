@@ -3,7 +3,6 @@
   "license": "MIT",
   "name": "react-ui-kit",
   "author": "Litvinov Andrey",
-  "type": "module",
   "module": "dist/react-ui-kit.esm.js",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
