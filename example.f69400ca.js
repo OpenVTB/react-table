@@ -31845,7 +31845,9 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"../dist/react-ui-kit.esm.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"../node_modules/@openvtb/admiral-icons/public/svg/category/Autocredit Outline.svg":[function(require,module,exports) {
+module.exports = "/Autocredit Outline.871c8770.svg";
+},{}],"../dist/react-ui-kit.esm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31854,6 +31856,10 @@ Object.defineProperty(exports, "__esModule", {
 exports.Thing = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
+
+var _AutocreditOutline = _interopRequireDefault(require("@openvtb/admiral-icons/public/svg/category/Autocredit Outline.svg"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -31896,11 +31902,11 @@ function SvgAttention(props) {
 
 var Thing = function Thing(_ref) {
   var children = _ref.children;
-  return _react.default.createElement("div", null, children || "the snozzberries taste like snozzberries", _react.default.createElement(SvgAttention, null));
+  return _react.default.createElement("div", null, children || "the snozzberries taste like snozzberries", _react.default.createElement(SvgAttention, null), _react.default.createElement(_AutocreditOutline.default, null));
 };
 
 exports.Thing = Thing;
-},{"react":"../node_modules/react/index.js"}],"index.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@openvtb/admiral-icons/public/svg/category/Autocredit Outline.svg":"../node_modules/@openvtb/admiral-icons/public/svg/category/Autocredit Outline.svg"}],"index.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -31982,7 +31988,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58038" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61470" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
