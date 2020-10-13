@@ -1,7 +1,7 @@
 {
-  "homepage": "https://drune.github.io/react-ui-kit/",
+  "homepage": "https://drune.github.io/react-table/",
   "name": "example",
-  "version": "1.0.0",
+  "version": "0.1.0.",
   "main": "index.js",
   "license": "MIT",
   "scripts": {

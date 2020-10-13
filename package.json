@@ -1,9 +1,9 @@
 {
   "version": "0.1.0",
   "license": "MIT",
-  "name": "react-ui-kit",
-  "author": "Litvinov Andrey",
-  "module": "dist/react-ui-kit.esm.js",
+  "name": "@openvtb/react-table",
+  "author": "VTB Team",
+  "module": "dist/react-table.esm.js",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -41,11 +41,11 @@
   },
   "size-limit": [
     {
-      "path": "dist/react-ui-kit.cjs.production.min.js",
+      "path": "dist/react-table.cjs.production.min.js",
       "limit": "10 KB"
     },
     {
-      "path": "dist/react-ui-kit.esm.js",
+      "path": "dist/react-table.esm.js",
       "limit": "10 KB"
     }
   ],
