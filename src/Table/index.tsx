@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-
+import { Checkbox } from '@openvtb/react-ui-kit';
 import { myTheme } from '../theme';
 
 export type Column = {
@@ -16,7 +16,9 @@ const Cell = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
 `;
-
+const CheckboxCell = styled.div`
+  padding: 10px 0 10px 10px;
+`;
 const TableContainer = styled.div`
   background: #ffffff;
 `;
@@ -45,6 +47,10 @@ const Row = styled.div`
   ${myTheme.fonts['Body / 13 Small']};
   display: flex;
   border-bottom: 1px solid #d8d8d8;
+  &:hover {
+    background: #f4f4f4;
+    cursor: pointer;
+  }
 `;
 
 const RowCell = styled(Cell)`
@@ -65,14 +71,50 @@ export type Props = {
   columnList: Column[];
   rowList: any[];
   row?: RowProps;
+  displayRowSelectionColumn?: boolean;
+  onRowSelectionChange: (idSelectionStatusMap: object) => void;
 };
 
 export const Table: FC<Props> = props => {
-  const { columnList, rowList, style, className } = props;
+  const {
+    columnList,
+    rowList,
+    style,
+    className,
+    displayRowSelectionColumn,
+    onRowSelectionChange,
+  } = props;
   const rowProps = { ...defaultRowProps, ...props.row };
+  const [checked, setChecked] = useState({} as any);
+  function handleRowSelectionChange(idSelectionStatusMap: object) {
+    onRowSelectionChange(idSelectionStatusMap);
+    setChecked(idSelectionStatusMap);
+  }
+  function handleCheckboxChange(id: string) {
+    handleRowSelectionChange({ ...checked, [id]: !checked[id] });
+  }
+  const allRowsChecked = rowList.every(row => checked[row.id]);
+  const someRowsChecked = rowList.some(row => checked[row.id]);
+  function handleHeaderCheckboxChange() {
+    const toRemove = rowList.reduce((ids, row) => {
+      ids[row.id] = !someRowsChecked;
+      return ids;
+    }, {});
+    handleRowSelectionChange({ ...checked, ...toRemove });
+  }
   return (
     <TableContainer className={className} style={style}>
       <Header style={{ height: rowProps.height }}>
+        {displayRowSelectionColumn && (
+          <CheckboxCell>
+            <Checkbox
+              size={'small'}
+              checked={allRowsChecked}
+              indeterminate={someRowsChecked && !allRowsChecked}
+              onChange={handleHeaderCheckboxChange}
+            />
+          </CheckboxCell>
+        )}
         {columnList.map(col => (
           <HeaderCell key={`head_${col.name}`}>{col.title}</HeaderCell>
         ))}
@@ -80,9 +122,18 @@ export const Table: FC<Props> = props => {
       </Header>
       {rowList.map(row => (
         <Row key={`row_${row.id}`} style={{ height: rowProps.height }}>
+          {displayRowSelectionColumn && (
+            <CheckboxCell>
+              <Checkbox
+                size={'small'}
+                checked={checked[row.id]}
+                onChange={() => handleCheckboxChange(row.id)}
+              />
+            </CheckboxCell>
+          )}
           {columnList.map(col => (
             <RowCell key={`${row.id}_${col.name}`}>
-              {new String(row[col.name])}
+              {String(row[col.name])}
             </RowCell>
           ))}
           <Filler />
@@ -94,4 +145,6 @@ export const Table: FC<Props> = props => {
 
 Table.defaultProps = {
   row: defaultRowProps,
+  displayRowSelectionColumn: true,
+  onRowSelectionChange: () => {},
 };
