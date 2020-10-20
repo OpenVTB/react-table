@@ -26,7 +26,8 @@
   },
   "peerDependencies": {
     "react": ">=16",
-    "react-dom": ">=16"
+    "react-dom": ">=16",
+    "styled-components": ">= 5"
   },
   "husky": {
     "hooks": {
@@ -61,18 +62,23 @@
     "@svgr/webpack": "^5.4.0",
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
+    "@types/styled-components": "^5.1.4",
     "babel-loader": "^8.1.0",
     "husky": "^4.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-is": "^16.13.1",
+    "regenerator-runtime": "^0.13.7",
     "rollup-plugin-svgo": "^1.1.0",
     "size-limit": "^4.6.0",
     "tsdx": "^0.14.0",
     "tslib": "^2.0.1",
-    "typescript": "^4.0.3"
+    "typescript": "^4.0.3",
+    "typescript-styled-plugin": "^0.15.0"
   },
   "dependencies": {
-    "@openvtb/admiral-icons": "^0.2.0"
+    "@openvtb/admiral-icons": "^0.2.0",
+    "@openvtb/react-ui-kit": "^0.2.1",
+    "styled-components": "^5.2.0"
   }
 }
