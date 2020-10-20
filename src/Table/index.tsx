@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+
 import { myTheme } from '../theme';
 
 export type Column = {
@@ -9,7 +10,7 @@ export type Column = {
 
 const Cell = styled.div`
   box-sizing: border-box;
-  padding: 0 12px 0 12px;
+  padding: 10px 12px;
   width: 15%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -20,15 +21,16 @@ const TableContainer = styled.div`
   background: #ffffff;
 `;
 
-const HeaderLine = styled.div`
-  ${myTheme.fonts['SubTitle / SubTitle 3']};
+const Header = styled.div`
+  box-sizing: border-box;
   display: flex;
+
+  ${myTheme.fonts['SubTitle / SubTitle 3']};
+
+  border-bottom: 1px solid #d8d8d8;
 `;
 
 const HeaderCell = styled(Cell)`
-  height: 40px;
-  line-height: 40px;
-  border-bottom: 1px solid #d8d8d8;
   &:hover {
     background: #e7e7e7;
     cursor: pointer;
@@ -38,43 +40,58 @@ const HeaderCell = styled(Cell)`
 const Filler = styled(HeaderCell)`
   flex: 1 1 auto;
 `;
-const RowLine = styled.div`
+
+const Row = styled.div`
   ${myTheme.fonts['Body / 13 Small']};
   display: flex;
+  border-bottom: 1px solid #d8d8d8;
 `;
 
 const RowCell = styled(Cell)`
   height: 40px;
-  line-height: 40px;
-
-  border-bottom: 1px solid #d8d8d8;
 `;
 
+export type RowProps = {
+  height?: number | string;
+};
+
+export const defaultRowProps: RowProps = {
+  height: 40,
+};
+
 export type Props = {
+  style?: any;
+  className?: string;
   columnList: Column[];
   rowList: any[];
+  row?: RowProps;
 };
 
 export const Table: FC<Props> = props => {
-  const { columnList, rowList } = props;
+  const { columnList, rowList, style, className } = props;
+  const rowProps = { ...defaultRowProps, ...props.row };
   return (
-    <TableContainer>
-      <HeaderLine>
+    <TableContainer className={className} style={style}>
+      <Header style={{ height: rowProps.height }}>
         {columnList.map(col => (
           <HeaderCell key={`head_${col.name}`}>{col.title}</HeaderCell>
         ))}
         <Filler />
-      </HeaderLine>
+      </Header>
       {rowList.map(row => (
-        <RowLine>
+        <Row key={`row_${row.id}`} style={{ height: rowProps.height }}>
           {columnList.map(col => (
             <RowCell key={`${row.id}_${col.name}`}>
               {new String(row[col.name])}
             </RowCell>
           ))}
           <Filler />
-        </RowLine>
+        </Row>
       ))}
     </TableContainer>
   );
+};
+
+Table.defaultProps = {
+  row: defaultRowProps,
 };
