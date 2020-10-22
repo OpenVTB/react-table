@@ -23,6 +23,7 @@ export const Header = Template.bind({});
 Header.args = {
   ...data,
   style: {
+    maxHeight: '400px',
     boxShadow: '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
   },
 };

@@ -15,7 +15,7 @@ const myTheme: DefaultTheme = {
       color: #242424;
     `,
     'Body / 13 Small': css`
-      font-family: Inter;
+      font-family: 'Inter', sans-serif;
       font-style: normal;
       font-weight: normal;
       font-size: 13px;

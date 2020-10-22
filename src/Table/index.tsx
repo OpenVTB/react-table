@@ -10,20 +10,28 @@ export type Column = {
 
 const Cell = styled.div`
   box-sizing: border-box;
-  padding: 10px 12px;
+  padding: 0 12px;
   width: 15%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 `;
+
 const CheckboxCell = styled.div`
   padding: 10px 0 10px 10px;
 `;
+
 const TableContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
   background: #ffffff;
 `;
 
 const Header = styled.div`
+  flex: 0 0 auto;
+  overflow-x: hidden;
+
   box-sizing: border-box;
   display: flex;
 
@@ -39,7 +47,13 @@ const HeaderCell = styled(Cell)`
   }
 `;
 
-const Filler = styled(HeaderCell)`
+const Filler = styled(Cell)`
+  flex: 1 1 auto;
+  width: unset;
+`;
+
+const ScrollTableBody = styled.div`
+  overflow: auto;
   flex: 1 1 auto;
 `;
 
@@ -53,8 +67,8 @@ const Row = styled.div`
   }
 `;
 
-const RowCell = styled(Cell)`
-  height: 40px;
+const RowCell = styled(Cell)<{ height?: number | string }>`
+  line-height: ${props => props.height}px;
 `;
 
 export type RowProps = {
@@ -116,29 +130,36 @@ export const Table: FC<Props> = props => {
           </CheckboxCell>
         )}
         {columnList.map(col => (
-          <HeaderCell key={`head_${col.name}`}>{col.title}</HeaderCell>
+          <HeaderCell
+            key={`head_${col.name}`}
+            style={{ lineHeight: `${rowProps.height}px` }}
+          >
+            {col.title}
+          </HeaderCell>
         ))}
         <Filler />
       </Header>
-      {rowList.map(row => (
-        <Row key={`row_${row.id}`} style={{ height: rowProps.height }}>
-          {displayRowSelectionColumn && (
-            <CheckboxCell>
-              <Checkbox
-                size={'small'}
-                checked={checked[row.id]}
-                onChange={() => handleCheckboxChange(row.id)}
-              />
-            </CheckboxCell>
-          )}
-          {columnList.map(col => (
-            <RowCell key={`${row.id}_${col.name}`}>
-              {String(row[col.name])}
-            </RowCell>
-          ))}
-          <Filler />
-        </Row>
-      ))}
+      <ScrollTableBody>
+        {rowList.map(row => (
+          <Row key={`row_${row.id}`} style={{ height: rowProps.height }}>
+            {displayRowSelectionColumn && (
+              <CheckboxCell>
+                <Checkbox
+                  size={'small'}
+                  checked={checked[row.id]}
+                  onChange={() => handleCheckboxChange(row.id)}
+                />
+              </CheckboxCell>
+            )}
+            {columnList.map(col => (
+              <RowCell height={rowProps.height} key={`${row.id}_${col.name}`}>
+                {String(row[col.name])}
+              </RowCell>
+            ))}
+            <Filler />
+          </Row>
+        ))}
+      </ScrollTableBody>
     </TableContainer>
   );
 };
