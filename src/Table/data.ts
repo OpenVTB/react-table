@@ -9,6 +9,7 @@ export type RowData = {
   rate: number;
   state: string;
 };
+
 export const rowList: RowData[] = [
   {
     id: '0001',
