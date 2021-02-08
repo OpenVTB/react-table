@@ -58,7 +58,7 @@ const ScrollTableBody = styled.div`
 `;
 
 const Row = styled.div`
-  ${myTheme.fonts['Body / 13 Small']};
+  ${myTheme.fonts['Body / Body 2 Short']};
   display: flex;
   border-bottom: 1px solid #d8d8d8;
   &:hover {
