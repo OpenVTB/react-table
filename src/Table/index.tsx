@@ -2,10 +2,14 @@ import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import { Checkbox } from '@openvtb/react-ui-kit';
 import { myTheme } from '../theme';
+import { RowWidthResizer } from './RowWidthResizer';
+
+export const DEFAULT_COLUMN_WIDTH = 100;
 
 export type Column = {
   name: string;
   title: string;
+  width?: number;
 };
 
 const Cell = styled.div`
@@ -41,6 +45,7 @@ const Header = styled.div`
 `;
 
 const HeaderCell = styled(Cell)`
+  position: relative;
   &:hover {
     background: #e7e7e7;
     cursor: pointer;
@@ -100,6 +105,7 @@ export const Table: FC<Props> = props => {
   } = props;
   const rowProps = { ...defaultRowProps, ...props.row };
   const [checked, setChecked] = useState({} as any);
+  const [cols, setColumns] = useState([...columnList]);
   function handleRowSelectionChange(idSelectionStatusMap: object) {
     onRowSelectionChange(idSelectionStatusMap);
     setChecked(idSelectionStatusMap);
@@ -116,6 +122,18 @@ export const Table: FC<Props> = props => {
     }, {});
     handleRowSelectionChange({ ...checked, ...toRemove });
   }
+
+  function handleResizeChange({ key, width }: { key: string; width: number }) {
+    const newColumns = cols.map(column =>
+      column.name === key
+        ? {
+            ...column,
+            width: width > DEFAULT_COLUMN_WIDTH ? width : DEFAULT_COLUMN_WIDTH,
+          }
+        : column
+    );
+    setColumns(newColumns);
+  }
   return (
     <TableContainer className={className} style={style}>
       <Header style={{ height: rowProps.height }}>
@@ -129,12 +147,17 @@ export const Table: FC<Props> = props => {
             />
           </CheckboxCell>
         )}
-        {columnList.map(col => (
+        {cols.map(({ name, title, width = DEFAULT_COLUMN_WIDTH }) => (
           <HeaderCell
-            key={`head_${col.name}`}
-            style={{ lineHeight: `${rowProps.height}px` }}
+            key={`head_${name}`}
+            style={{ lineHeight: `${rowProps.height}px`, width: width }}
           >
-            {col.title}
+            {title}
+            <RowWidthResizer
+              id={name}
+              width={width ? width : DEFAULT_COLUMN_WIDTH}
+              onChange={handleResizeChange}
+            />
           </HeaderCell>
         ))}
         <Filler />
@@ -151,8 +174,12 @@ export const Table: FC<Props> = props => {
                 />
               </CheckboxCell>
             )}
-            {columnList.map(col => (
-              <RowCell height={rowProps.height} key={`${row.id}_${col.name}`}>
+            {cols.map(col => (
+              <RowCell
+                height={rowProps.height}
+                key={`${row.id}_${col.name}`}
+                style={{ width: col.width || DEFAULT_COLUMN_WIDTH }}
+              >
                 {String(row[col.name])}
               </RowCell>
             ))}
