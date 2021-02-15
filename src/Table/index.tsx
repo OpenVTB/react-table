@@ -62,10 +62,11 @@ const ScrollTableBody = styled.div`
   flex: 1 1 auto;
 `;
 
-const Row = styled.div`
+const Row = styled.div<{ isSelected: boolean }>`
   ${myTheme.fonts['Body / Body 2 Short']};
   display: flex;
   border-bottom: 1px solid #d8d8d8;
+  ${props => (props.isSelected ? `background: #EDF5FF;` : '')}
   &:hover {
     background: #f4f4f4;
     cursor: pointer;
@@ -164,7 +165,11 @@ export const Table: FC<Props> = props => {
       </Header>
       <ScrollTableBody>
         {rowList.map(row => (
-          <Row key={`row_${row.id}`} style={{ height: rowProps.height }}>
+          <Row
+            key={`row_${row.id}`}
+            style={{ height: rowProps.height }}
+            isSelected={checked[row.id]}
+          >
             {displayRowSelectionColumn && (
               <CheckboxCell>
                 <Checkbox
