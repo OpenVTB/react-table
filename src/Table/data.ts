@@ -1,4 +1,4 @@
-import { Column } from '../Table';
+import type { Column } from '../Table';
 
 export type RowData = {
   id: string;
