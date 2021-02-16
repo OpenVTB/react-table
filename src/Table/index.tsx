@@ -104,18 +104,23 @@ export const Table: FC<Props> = props => {
     displayRowSelectionColumn,
     onRowSelectionChange,
   } = props;
+
   const rowProps = { ...defaultRowProps, ...props.row };
   const [checked, setChecked] = useState({} as any);
   const [cols, setColumns] = useState([...columnList]);
+
   function handleRowSelectionChange(idSelectionStatusMap: object) {
     onRowSelectionChange(idSelectionStatusMap);
     setChecked(idSelectionStatusMap);
   }
+
   function handleCheckboxChange(id: string) {
     handleRowSelectionChange({ ...checked, [id]: !checked[id] });
   }
+
   const allRowsChecked = rowList.every(row => checked[row.id]);
   const someRowsChecked = rowList.some(row => checked[row.id]);
+
   function handleHeaderCheckboxChange() {
     const toRemove = rowList.reduce((ids, row) => {
       ids[row.id] = !someRowsChecked;
@@ -135,6 +140,7 @@ export const Table: FC<Props> = props => {
     );
     setColumns(newColumns);
   }
+
   return (
     <TableContainer className={className} style={style}>
       <Header style={{ height: rowProps.height }}>
